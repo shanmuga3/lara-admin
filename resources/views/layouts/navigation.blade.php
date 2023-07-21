@@ -1,14 +1,25 @@
+<!--begin::Sidebar-->
 <aside class="app-sidebar shadow transition-none" data-bs-theme="light">
+    <!--begin::Sidebar Brand-->
     <div class="sidebar-brand">
-        <a href="{{ route('home') }}" class="brand-link" target="_blank">
-            <img src="{{ $site_logo }}" alt="{{ $site_name }}" class="brand-image opacity-75 shadow">
-            <span class="brand-text fw-light"> {{ $site_name }}</span>
+        <!--begin::Brand Link-->
+        <a href="{{ route('home') }}" class="brand-link">
+            <!--begin::Brand Image-->
+            <img src="{{ asset('images/logo.png') }}" alt="AdminLTE Logo" class="brand-image opacity-75 shadow">
+            <!--end::Brand Image-->
+            <!--begin::Brand Text-->
+            <span class="brand-text fw-light"> Admin Template</span>
+            <!--end::Brand Text-->
         </a>
+        <!--end::Brand Link-->
     </div>
+    <!--end::Sidebar Brand-->
+    <!--begin::Sidebar Wrapper-->
     <div class="sidebar-wrapper">
         <nav class="mt-2">
+            <!--begin::Sidebar Menu-->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                @foreach(\App\Services\NavigationService::generate_menu($active_menu) as $menu)
+                @foreach(\App\Services\NavigationService::generate_menu($active_menu ?? '') as $menu)
                 <li class="nav-item {{ $menu['has_submenu'] && $menu['is_active'] ? 'menu-open': '' }}">
                     @if($menu['has_submenu'])
                     <a href="#" class="nav-link {{ $menu['is_active'] ? 'active':'' }}">
@@ -37,4 +48,6 @@
             </ul>
         </nav>
     </div>
+    <!--end::Sidebar Wrapper-->
 </aside>
+<!--end::Sidebar-->

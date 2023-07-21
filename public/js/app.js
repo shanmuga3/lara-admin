@@ -20514,8 +20514,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var _admin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin */ "./resources/js/admin.js");
 /* harmony import */ var _admin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_admin__WEBPACK_IMPORTED_MODULE_1__);
+/* provided dependency */ var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 
+var myApp = Vue.createApp({
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    window.addEventListener('load', function () {
+      function attachEventToClass(selector, handler) {
+        var event = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'click';
+        document.querySelectorAll(selector).forEach(function (item) {
+          item.addEventListener(event, handler);
+        });
+      }
+      function flashMessage(content) {
+        var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+        content.icon = 'icon icon-bell';
+        $.notify(content, {
+          template: '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="btn-close" data-notify="dismiss"></button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>',
+          type: state,
+          placement: {
+            from: "top",
+            align: "center"
+          },
+          delay: 5000
+        });
+      }
+    });
+  },
+  watch: {},
+  components: {},
+  computed: {},
+  methods: {}
+});
+myApp.mount('#app');
 
 /***/ }),
 
