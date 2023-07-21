@@ -63,6 +63,7 @@
 			</div>
 		</div>
 		<script src="{{ asset('js/app.js') }}"></script>
+		<script src="{{ asset('js/functions.js') }}"></script>
 		<!-- Jquery Backstretch -->
 		<script src="{{ asset('plugins/backstretch/jquery.backstretch.min.js') }}"></script>
 		@if(Session::has('message'))

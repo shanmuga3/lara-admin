@@ -55,15 +55,8 @@ class HomeController extends Controller
         $this->validate($request,$rules,[],$attributes);
 
         $remember = ($request->remember_me == 'on');
-
         if (Auth::attempt($request->only('email','password'),$remember)) {
             $admin = User::where('email', $request->email)->first();
-            
-            if(!$admin->status) {
-                Auth::logout();
-                flashMessage('danger',"Failed to Login","Your account has been disabled by admin");
-                return redirect()->route('login');
-            }
 
             return redirect()->route('dashboard');
         }

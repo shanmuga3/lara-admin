@@ -228,6 +228,7 @@
             <!--end::Footer-->
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/functions.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.1.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-NRZchBuHZWSXldqrtAOeCZpucH/1n1ToJ3C8mSK95NU=" crossorigin="anonymous"></script>
         <script src="{{ asset('plugins/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
         <script src="{{ asset('plugins/summernote/summernote-bs5.min.js') }}"></script>
