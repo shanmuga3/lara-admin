@@ -41,7 +41,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $this->view_data['sub_title'] = Lang::get('admin_messages.add_role');
+        $this->view_data['sub_title'] = "Add Role";
         $this->view_data['result'] = new Role;
         $this->view_data['permissions'] = Permission::get();
         $this->view_data['old_permissions'] = array();
@@ -69,7 +69,7 @@ class RoleController extends Controller
 
         $role->permissions()->sync($permissions);
         
-        flashMessage('success',Lang::get('admin_messages.success'),Lang::get('admin_messages.successfully_added'));
+        flashMessage('success',"Success","Entered Details has been added Successfully");
         return redirect()->route('roles');
     }
 
@@ -81,7 +81,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $this->view_data['sub_title'] = Lang::get('admin_messages.edit_role');
+        $this->view_data['sub_title'] = "Edit Role";
         $this->view_data['result'] = Role::findOrFail($id);
         $this->view_data['permissions'] = Permission::get();
         $this->view_data['old_permissions'] = \DB::table('permission_role')->where('role_id',$id)->pluck('permission_id')->toArray();
@@ -110,7 +110,7 @@ class RoleController extends Controller
 
         $role->permissions()->sync($permissions);
 
-        flashMessage('success',Lang::get('admin_messages.success'),Lang::get('admin_messages.successfully_updated'));
+        flashMessage('success',"Success", "Entered Details has been updated Successfully");
 
         return redirect()->route('roles');
     }
@@ -136,7 +136,7 @@ class RoleController extends Controller
             $role->permissions()->sync([]);
             $role->forceDelete();
             
-            flashMessage('success',Lang::get('admin_messages.success'),Lang::get('admin_messages.successfully_deleted'));
+            flashMessage('success',"Success","Selected Record has been Deleted Successfully");
         }
         catch (\Exception $e) {
             flashMessage('danger',Lang::get('admin_messages.failed'),$e->getMessage());
@@ -180,7 +180,7 @@ class RoleController extends Controller
         if($admin_count == 0) {
             return ['status' => true,'status_message' => ''];
         }
-        return ['status' => false, 'status_message' => Lang::get('admin_messages.some_user_used_role')];
+        return ['status' => false, 'status_message' => "Some user used this role. So you can't delete at this time"];
 
     }
 }

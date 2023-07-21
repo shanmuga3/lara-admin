@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Manage Users Routes
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', [UserController::class,'index'])->name('users')->middleware('permission:view-users');
+        Route::get('/', [UserController::class,'index'])->name('users')->middleware('permission:read-users');
         Route::get('create', [UserController::class,'create'])->name('users.create')->middleware('permission:create-users');
         Route::post('/', [UserController::class,'store'])->name('users.store')->middleware('permission:create-users');
         Route::get('{id}/edit', [UserController::class,'edit'])->name('users.edit')->middleware('permission:update-users');
@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Manage Roles and Permissions Routes
     Route::group(['prefix' => 'roles'], function () {
-        Route::get('/', [RoleController::class,'index'])->name('roles')->middleware('permission:view-roles');
+        Route::get('/', [RoleController::class,'index'])->name('roles')->middleware('permission:read-roles');
         Route::get('create', [RoleController::class,'create'])->name('roles.create')->middleware('permission:create-roles');
         Route::post('/', [RoleController::class,'store'])->name('roles.store')->middleware('permission:create-roles');
         Route::get('{id}/edit', [RoleController::class,'edit'])->name('roles.edit')->middleware('permission:update-roles');

@@ -17,5 +17,6 @@ function flashMessage(content, state = 'success')
             align: "center"
         },
         delay: 5000,
+        z_index: 1099,
     });
 }

@@ -1,9 +1,3 @@
-*,
-*:before,
-*:after {
-    transition: all 400ms ease;
-}
-
 ::-webkit-scrollbar {
     -webkit-appearance: none;
 }
@@ -47,7 +41,6 @@ body {
     color: $primary-text;
     font-size: $font-size;
     overflow-x: hidden;
-    transition: all ease 800ms;
     font-weight: 500;
 
     .table-responsive {

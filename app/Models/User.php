@@ -43,4 +43,26 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get Role Id
+     *
+     * @return Integer Id
+     */
+    public function getRoleIdAttribute()
+    {
+        $roles = $this->roles()->first();
+        return optional($roles)->id ?? '';
+    }
+
+    /**
+     * Get Role Name
+     *
+     * @return Integer Id
+     */
+    public function getRoleNameAttribute()
+    {
+        $role = $this->roles()->first();
+        return optional($role)->display_name ?? '';
+    }
 }

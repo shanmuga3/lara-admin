@@ -20522,7 +20522,18 @@ var myApp = Vue.createApp({
     return {};
   },
   mounted: function mounted() {
-    window.addEventListener('load', function () {});
+    window.addEventListener('load', function () {
+      var deleteModalEl = document.getElementById('confirmDeleteModal');
+      if (deleteModalEl !== null) {
+        deleteModalEl.addEventListener('shown.bs.modal', function (event) {
+          var action = event.relatedTarget.dataset.action;
+          document.getElementById('confirmDeleteForm').setAttribute('action', action);
+        });
+        deleteModalEl.addEventListener('hidden.bs.modal', function (event) {
+          document.getElementById('confirmDeleteForm').setAttribute('action', '#');
+        });
+      }
+    });
   },
   watch: {},
   components: {},

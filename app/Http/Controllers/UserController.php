@@ -57,19 +57,15 @@ class UserController extends Controller
     {
         $this->validateRequest($request);
 
-        $admin = new User;
-        $admin->full_name = $request->full_name;
-        $admin->email = $request->email;
-        $admin->password = $request->password;
-        $admin->primary = $request->primary;
-        $admin->user_currency = $request->user_currency;
-        $admin->user_language = $request->user_language;
-        $admin->status = $request->status;
-        $admin->save();
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
 
-        $admin->attachRole($request->role);
+        $user->attachRole($request->role);
 
-        flashMessage('success',"Success",Lang::get('admin_messages.successfully_added'));
+        flashMessage('success',"Success","Entered Details has been added Successfully");
 
         return redirect()->route('users');
     }
@@ -101,22 +97,18 @@ class UserController extends Controller
     {
         $this->validateRequest($request, $id);
 
-        $admin = User::Find($id);
-        $admin->full_name = $request->full_name;
-        $admin->email = $request->email;
+        $user = User::Find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
         if($request->filled('password')) {
-            $admin->password = $request->password;
+            $user->password = bcrypt($request->password);
         }
-        $admin->primary = $request->primary;
-        $admin->user_currency = $request->user_currency;
-        $admin->user_language = $request->user_language;
-        $admin->status = $request->status;
-        $admin->save();
+        $user->save();
 
-        $admin->detachRoles();
-        $admin->attachRole($request->role);
+        $user->detachRoles();
+        $user->attachRole($request->role);
 
-        flashMessage('success',"Success",Lang::get('admin_messages.successfully_updated'));
+        flashMessage('success',"Success", "Entered Details has been updated Successfully");
 
         return redirect()->route('users');
     }
@@ -138,7 +130,7 @@ class UserController extends Controller
         
         try {
             User::where('id',$id)->delete();
-            flashMessage('success',"Success",Lang::get('admin_messages.successfully_deleted'));
+            flashMessage('success',"Success","Selected Record has been Deleted Successfully");
         }
         catch (\Exception $e) {
             flashMessage('danger',"Failed",$e->getMessage());
@@ -159,14 +151,10 @@ class UserController extends Controller
         $password_rule = Password::min(8)->mixedCase()->numbers()->uncompromised();
         $image_rule = ($id == '') ? 'required|':'';
         $rules = array(
-            'full_name' => ['required'],
+            'name' => ['required'],
             'password' => ['required',$password_rule],
-            'email' => ['required','max:50','email','unique:admins,email,'.$id],
+            'email' => ['required','max:50','email','unique:users,email,'.$id],
             'role' => ['required','exists:roles,id'],
-            'primary' => ['required'],
-            'user_currency' => ['required'],
-            'user_language' => ['required'],
-            'status' => ['required'],
         );
 
         if($id != '') {
@@ -174,12 +162,10 @@ class UserController extends Controller
         }
 
         $attributes = array(
-            'full_name' => Lang::get('admin_messages.full_name'),
-            'password' => Lang::get('admin_messages.password'),
-            'email' => Lang::get('admin_messages.email'),
-            'role' => Lang::get('admin_messages.role'),
-            'primary' => Lang::get('admin_messages.primary'),
-            'status' => Lang::get('admin_messages.status'),
+            'name' => "Name",
+            'password' => "password",
+            'email' => "email",
+            'role' => "role",
         );
 
         $this->validate($request_data,$rules,[],$attributes);
@@ -193,10 +179,10 @@ class UserController extends Controller
      */
     protected function canDestroy($id)
     {
-        $admin_count = User::activeOnly()->where('id','!=',$id)->count();
+        $user_count = User::activeOnly()->where('id','!=',$id)->count();
 
-        if($admin_count == 0) {
-            return ['status' => false, 'status_message' => Lang::get('admin_messages.only_one_admin')];
+        if($user_count == 0) {
+            return ['status' => false, 'status_message' => "Atleast One Admin User must be Active, So Cannot Delete at this time"];
         }
 
         return ['status' => true,'status_message' => ''];

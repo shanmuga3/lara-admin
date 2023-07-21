@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::useBootstrapFive();
+
+        $this->registerBladeDirectives();
+    }
+
+    /**
+     * Register Custom Blade Directives
+     *
+     */
+    protected function registerBladeDirectives(): void
+    {
+        // Blade Directive to check Permission of current Admin User
+        \Blade::if('checkPermission', function($permission) {
+            return auth()->user()->can($permission);
+        });
     }
 }

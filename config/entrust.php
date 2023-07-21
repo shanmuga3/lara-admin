@@ -72,6 +72,7 @@ return [
     */
     'defaults' => [
         'guard'          => 'web',
+        'permission_separator'    => '-',
     ],
 
     /*
