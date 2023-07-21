@@ -11,6 +11,9 @@ class NavigationService
     {
         $user = Auth::user();
         $menus = [];
+        if($active_menu == '') {
+            $active_menu = \Route::currentRouteName();
+        }
 
         $menus[] = [
             'link' => route('dashboard'),
@@ -49,6 +52,33 @@ class NavigationService
                 'sub_menu' => $sub_menu,
             ];
         }
+
+        $sub_menu = [
+            [
+                'link' => route('small_box'),
+                'text' => "Small Box",
+                'is_active' => $active_menu == 'small_box',
+            ],
+            [
+                'link' => route('info_box'),
+                'text' => "Info Box",
+                'is_active' => $active_menu == 'info_box',
+            ],
+            [
+                'link' => route('card'),
+                'text' => "Cards",
+                'is_active' => $active_menu == 'card',
+            ],
+        ];
+
+        $menus[] = [
+            'link' => 'WidgetUserDropdown',
+            'text' => "Widgets",
+            'icon' => 'bi bi-box-seam-fill',
+            'is_active' => in_array($active_menu,['small_box', 'info_box','card']),
+            'has_submenu' => true,
+            'sub_menu' => $sub_menu,
+        ];
 
         return $menus;
     }

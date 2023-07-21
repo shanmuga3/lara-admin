@@ -50,4 +50,29 @@ Route::group(['middleware' => 'auth'], function () {
         Route::match(['PUT','PATCH'],'{id}', [RoleController::class,'update'])->name('roles.update')->middleware('permission:update-roles');
         Route::delete('{id}', [RoleController::class,'destroy'])->name('roles.delete')->middleware('permission:delete-roles');
     });
+
+    Route::get('small-box',function() {
+        $data = [
+            'main_title' => "Small Box",
+            'sub_title' => "Small Box",
+        ];
+        return view('widgets.small_box',$data);
+    })->name('small_box');
+
+    Route::get('info-box',function() {
+        $data = [
+            'main_title' => "Info Box",
+            'sub_title' => "Info Box",
+        ];
+        return view('widgets.info_box',$data);
+    })->name('info_box');
+
+    Route::get('card',function() {
+        $data = [
+            'main_title' => "Cards",
+            'sub_title' => "Cards",
+        ];
+        return view('widgets.card',$data);
+    })->name('card');
+
 });
