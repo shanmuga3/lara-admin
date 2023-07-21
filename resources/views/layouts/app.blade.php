@@ -202,8 +202,7 @@
                 <!--end::To the end-->
                 <!--begin::Copyright-->
                 <strong>
-                    Copyright &copy; 2014-2023
-                    <a href="https://adminlte.io">AdminLTE.io</a>.
+                    Copyright &copy; 2023
                 </strong>
                 All rights reserved.
                 <!--end::Copyright-->
